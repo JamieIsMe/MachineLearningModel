@@ -11,71 +11,62 @@ public class Loaner {
 	String education;
 	boolean selfEmployed;
 	int applicantIncome;
-	Float coapplicantIncome;
-	Float loanAmount;
-	Float loanTerm;
+	Double coapplicantIncome;
+	Double loanAmount;
+	double loanTerm;
 	boolean creditHistory;
 	String propertyArea;
 	boolean loanStatus;
 	
 	List<String> line = new ArrayList<>();
 	
-	public Loaner(String gender, boolean married, String dependants, String education,
-			boolean selfEmployed, int applicantIncome, Float coapplicantIncome,
-			Float loanAmount, Float loanTerm, boolean creditHistory,
-			String propertyArea, boolean loanStatus) {
-		this.gender = gender;
-		this.married = married;
-		this.dependants = dependants;
-		this.education = education;
-		this.selfEmployed = selfEmployed;
-		this.applicantIncome = applicantIncome;
-		this.coapplicantIncome = coapplicantIncome;
-		this.loanAmount = loanAmount;
-		this.loanTerm = loanTerm;
-		this.creditHistory = creditHistory;
-		this.propertyArea = propertyArea;
-		this.loanStatus = loanStatus;
-		
-		
-	}
 	public Loaner(List<String> test) {
 		this.loanID = test.get(0);
-		try {
+		
+		//Checks if its a string of either male or female, otherwise sets it to male as its the most common
+		if (test.get(1).contains("Male") | test.get(1).contains("Female")) {
 			this.gender = test.get(1);
-		} catch(Exception e){
-			this.gender = "Male";
-		}
+		} else this.gender = "Male";
+		
+			
 		this.married = test.get(2).contains("Yes");
 		
-		try {
+		//Checks if the string contains an integer, otherwise sets it to 0 as its the most common
+		if (test.get(3).matches(".*\\d.*")) {
 			this.dependants = test.get(3);
-		} catch(Exception e){
+		}
+		else {
 			this.dependants = "0";
 		}
+		
 		this.education = test.get(4);
 		
-		try {
-			this.selfEmployed = test.get(5).contains("Yes");
-		} catch(Exception e){
-			this.selfEmployed = false;
-		}
+		//Is set to TRUE if self employed is marked as Yes, otherwise is set to false
+		this.selfEmployed = test.get(5).contains("Yes");
 		
 		this.applicantIncome = Integer.valueOf(test.get(6));
-		this.coapplicantIncome = Float.valueOf(test.get(7));
-		this.loanAmount =Float.valueOf(test.get(8));
+		this.coapplicantIncome = Double.valueOf(test.get(7));
+		this.loanAmount = Double.valueOf(test.get(8));
+		
+		//Trys to see if the string has a double, otherwise sets it to 360 as its the most common
 		try {
-			this.loanTerm = Float.valueOf(test.get(9));
+			this.loanTerm = Double.parseDouble(test.get(9));
 		} catch(Exception e){
-			this.loanTerm = (float)360.0;
+			this.loanTerm = 360.0;
 		}
-		this.creditHistory = test.get(10) == "1.0";
+		//Is set to TRUE if credit history is marked as 1, otherwise is set to false
+		this.creditHistory = test.get(10).contains("1");
 		this.propertyArea = test.get(11);
-		this.loanStatus = test.get(12)=="Y";
+		//Is set to TRUE if loan status is marked as Y, otherwise is set to false
+		this.loanStatus = test.get(12).contains("Y");
 
 	}
 	
-	public  void showData() {
-		System.out.println(loanID + " " +gender +" " + married + " " + dependants);
+	//Prints out all the variables in a human readable format
+	public void displayData() {
+		System.out.println(loanID + " " + gender + " " + married + " " + dependants + " " + education
+				+" "+ selfEmployed + " " + applicantIncome + " " + coapplicantIncome + " " +
+				loanAmount + " " +loanTerm+" "+ creditHistory + " " + propertyArea + " " + loanStatus
+				);
 	}
 }
