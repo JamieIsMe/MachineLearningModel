@@ -10,44 +10,47 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String args[]) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader("loan_data.csv"));
 		int dataSize = 0;
+		List<String> headers;
+		
+		//Reads the file to find out how many lines it contains, and therefore how large the array 
+		//that contains the test data needs to be
+		BufferedReader reader = new BufferedReader(new FileReader("loan_data.csv"));
 		while (reader.readLine() != null) dataSize+=1;
 		reader.close();
 		
 		Scanner in = new Scanner(new FileReader("loan_data.csv"));
+		//Creates an array of the loaner class with the size of the dataset
 		Loaner[] testing = new Loaner[dataSize];
+		
+		//A counter for keeping track how far into the data set we are
 		int i = 0;
+		
 		try {
 			List<List<String>> line = new ArrayList<>();
 			
-			
-			
-			
-			
 			//Adds each line of the CSV to an array as an array of its own
-			line.add(Arrays.asList(in.nextLine().split(",")));
+			line.add(headers = Arrays.asList(in.nextLine().split(",")));
 			line.add(Arrays.asList(in.nextLine().split(",")));
 
+			//While there is a next line, adds the line to The loaner class array,
+			//reads the next line and increments the counter
 			while (in.hasNextLine()) {
-				//System.out.print(line.get(i) +"\n"); 
-				
 				testing[i] = new Loaner(line.get(i+1));
 				line.add(Arrays.asList(in.nextLine().split(",")));  
-				/*
-				 * line.add(Arrays.asList(in.nextLine().split(","))); Loaner test = new
-				 * Loaner(line.get(i)); Training.add(test);
-				 */
 				i+=1;
 			}
+			//Adds the final line to the loaner class array
 			testing[i] = new Loaner(line.get(i+1));
 			
 		} finally {
-			
-			System.out.println(i);
+			//Closes the scanner after it is finished
 			in.close();
 		}
-	
-		testing[16].showData();
+		System.out.println(headers);
+		for (int y=0; y<testing.length-1;y++) {
+			testing[y].displayData();
+		}
+		
 	}
 }
