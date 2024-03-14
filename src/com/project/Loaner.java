@@ -16,9 +16,7 @@ public class Loaner {
 	double loanTerm;
 	boolean creditHistory;
 	String propertyArea;
-	boolean loanStatus;
 	
-	List<String> line = new ArrayList<>();
 	
 	public Loaner(List<String> test) {
 		this.loanID = test.get(0);
@@ -28,7 +26,7 @@ public class Loaner {
 			this.gender = test.get(1);
 		} else this.gender = "Male";
 		
-			
+		//Is set to TRUE if married is marked as Yes, otherwise is set to false	
 		this.married = test.get(2).contains("Yes");
 		
 		//Checks if the string contains an integer, otherwise sets it to 0 as its the most common
@@ -38,7 +36,7 @@ public class Loaner {
 		else {
 			this.dependants = "0";
 		}
-		
+
 		this.education = test.get(4);
 		
 		//Is set to TRUE if self employed is marked as Yes, otherwise is set to false
@@ -57,8 +55,6 @@ public class Loaner {
 		//Is set to TRUE if credit history is marked as 1, otherwise is set to false
 		this.creditHistory = test.get(10).contains("1");
 		this.propertyArea = test.get(11);
-		//Is set to TRUE if loan status is marked as Y, otherwise is set to false
-		this.loanStatus = test.get(12).contains("Y");
 
 	}
 	
@@ -66,7 +62,6 @@ public class Loaner {
 	public void displayData() {
 		System.out.println(loanID + " " + gender + " " + married + " " + dependants + " " + education
 				+" "+ selfEmployed + " " + applicantIncome + " " + coapplicantIncome + " " +
-				loanAmount + " " +loanTerm+" "+ creditHistory + " " + propertyArea + " " + loanStatus
-				);
+				loanAmount + " " +loanTerm+" "+ creditHistory + " " + propertyArea);
 	}
 }
