@@ -21,7 +21,7 @@ public class Main {
 		
 		Scanner in = new Scanner(new FileReader("loan_data.csv"));
 		//Creates an array of the loaner class with the size of the dataset
-		Loaner[] testing = new Loaner[dataSize];
+		TrainingLoaner[] testing = new TrainingLoaner[dataSize];
 		
 		//A counter for keeping track how far into the data set we are
 		int i = 0;
@@ -33,15 +33,15 @@ public class Main {
 			line.add(headers = Arrays.asList(in.nextLine().split(",")));
 			line.add(Arrays.asList(in.nextLine().split(",")));
 
-			//While there is a next line, adds the line to The loaner class array,
+			//While there is a next line, adds the line to The TrainingLoaner class array,
 			//reads the next line and increments the counter
 			while (in.hasNextLine()) {
-				testing[i] = new Loaner(line.get(i+1));
+				testing[i] = new TrainingLoaner(line.get(i+1));
 				line.add(Arrays.asList(in.nextLine().split(",")));  
 				i+=1;
 			}
-			//Adds the final line to the loaner class array
-			testing[i] = new Loaner(line.get(i+1));
+			//Adds the final line to the TrainingLoaner class array
+			testing[i] = new TrainingLoaner(line.get(i+1));
 			
 		} finally {
 			//Closes the scanner after it is finished
