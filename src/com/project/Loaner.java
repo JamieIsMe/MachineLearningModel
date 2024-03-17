@@ -1,6 +1,5 @@
 package com.project;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Loaner {
@@ -8,7 +7,7 @@ public class Loaner {
 	String gender;
 	boolean married;
 	String dependants;
-	String education;
+	boolean education;
 	boolean selfEmployed;
 	int applicantIncome;
 	Double coapplicantIncome;
@@ -37,7 +36,7 @@ public class Loaner {
 			this.dependants = "0";
 		}
 
-		this.education = test.get(4);
+		this.education = test.get(4).contains("Graduate");
 		
 		//Is set to TRUE if self employed is marked as Yes, otherwise is set to false
 		this.selfEmployed = test.get(5).contains("Yes");
