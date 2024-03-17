@@ -21,7 +21,8 @@ public class Main {
 		
 		Scanner in = new Scanner(new FileReader("loan_data.csv"));
 		//Creates an array of the loaner class with the size of the dataset
-		TrainingLoaner[] testing = new TrainingLoaner[dataSize];
+		TrainingLoaner[] trainingData = new TrainingLoaner[dataSize];
+		ProbabilityFinder finder;
 		
 		//A counter for keeping track how far into the data set we are
 		int i = 0;
@@ -36,21 +37,29 @@ public class Main {
 			//While there is a next line, adds the line to The TrainingLoaner class array,
 			//reads the next line and increments the counter
 			while (in.hasNextLine()) {
-				testing[i] = new TrainingLoaner(line.get(i+1));
+				trainingData[i] = new TrainingLoaner(line.get(i+1));
 				line.add(Arrays.asList(in.nextLine().split(",")));  
 				i+=1;
 			}
 			//Adds the final line to the TrainingLoaner class array
-			testing[i] = new TrainingLoaner(line.get(i+1));
+			trainingData[i] = new TrainingLoaner(line.get(i+1));
 			
 		} finally {
 			//Closes the scanner after it is finished
 			in.close();
 		}
-		System.out.println(headers);
-		for (int y=0; y<testing.length-1;y++) {
-			testing[y].displayData();
-		}
+		
+		//Section dedicated to calculating probabilities from the training dataset
+		finder = new ProbabilityFinder(trainingData);
+		finder.findDependants();
+		
+		
+		
+//		System.out.println(headers);
+//		for (int y=0; y<trainingData.length-1;y++) {
+//			trainingData[y].displayData();
+//		}
+		
 		
 	}
 }
