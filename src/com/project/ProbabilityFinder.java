@@ -32,6 +32,35 @@ public class ProbabilityFinder {
 	double nGivenSelfEmployed;
 	double nGivenNotSelfEmployed;
 	
+	double yGiven0kIncome;
+	double yGiven2kIncome;
+	double yGiven4kIncome;
+	double yGiven6kIncome;
+	double yGiven8kIncome;
+	double nGiven0kIncome;
+	double nGiven2kIncome;
+	double nGiven4kIncome;
+	double nGiven6kIncome;
+	double nGiven8kIncome;
+	
+	double yGiven0kCoIncome;
+	double yGiven2kCoIncome;
+	double yGiven4kCoIncome;
+	double yGiven6kCoIncome;
+	double yGiven8kCoIncome;
+	double nGiven0kCoIncome;
+	double nGiven2kCoIncome;
+	double nGiven4kCoIncome;
+	double nGiven6kCoIncome;
+	double nGiven8kCoIncome;
+	
+	double yGiven0Loan;
+	double yGiven50Loan;
+	double yGiven100Loan;
+	double nGiven0Loan;
+	double nGiven50Loan;
+	double nGiven100Loan;
+	
 	public ProbabilityFinder(TrainingLoaner[] trainingData) {
 		this.trainingData = trainingData;
 	}
@@ -204,6 +233,177 @@ public class ProbabilityFinder {
 	
 	//Applicant Income will be sorted by ranges, 0-1999, 2000-3999, 4000-5999, 6000-7999, 8000+
 	public void findApplicantIncome() {
+		double income0kY = 0;
+		double income2kY = 0;
+		double income4kY = 0;
+		double income6kY = 0;
+		double income8kY = 0;
+		double income0kN = 0;
+		double income2kN = 0;
+		double income4kN = 0;
+		double income6kN = 0;
+		double income8kN = 0;
+		
+		double yCount;
+		double nCount;
+		
+		for (int i=0;i<trainingData.length-1;i++) {
+			if (trainingData[i].applicantIncome >= 8000) {
+				if (trainingData[i].isLoaned) {
+					income8kY++;
+				} else {
+					income8kN++;
+				}
+			} else if (trainingData[i].applicantIncome >= 6000) {
+				if (trainingData[i].isLoaned) {
+					income6kY++;
+				} else {
+					income6kN++;
+				}
+			} else if (trainingData[i].applicantIncome >= 4000) {
+				if (trainingData[i].isLoaned) {
+					income4kY++;
+				} else {
+					income4kN++;
+				}
+			} else if (trainingData[i].applicantIncome >= 2000) {
+				if (trainingData[i].isLoaned) {
+					income2kY++;
+				} else {
+					income2kN++;
+				}
+			} else {
+				if (trainingData[i].isLoaned) {
+					income0kY++;
+				} else {
+					income0kN++;
+				}
+			}
+			yCount = income0kY+income2kY+income4kY+income6kY+income8kY;
+			nCount = income0kN+income2kN+income4kN+income6kN+income8kN;
+			
+			yGiven0kIncome = income0kY/yCount;
+			yGiven2kIncome = income2kY/yCount;
+			yGiven4kIncome = income4kY/yCount;
+			yGiven6kIncome = income6kY/yCount;
+			yGiven8kIncome = income8kY/yCount;
+			nGiven0kIncome = income0kN/nCount;
+			nGiven2kIncome = income2kN/nCount;
+			nGiven4kIncome = income4kN/nCount;
+			nGiven6kIncome = income6kN/nCount;
+			nGiven8kIncome = income8kN/nCount;
+		}
+	}
+	
+	//CoApplicant Income will be sorted by ranges, 0-1999, 2000-3999, 4000-5999, 6000-7999, 8000+
+	public void findCoApplicantIncome() {
+		double income0kY = 0;
+		double income2kY = 0;
+		double income4kY = 0;
+		double income6kY = 0;
+		double income8kY = 0;
+		double income0kN = 0;
+		double income2kN = 0;
+		double income4kN = 0;
+		double income6kN = 0;
+		double income8kN = 0;
+		
+		double yCount;
+		double nCount;
+		
+		for (int i=0;i<trainingData.length-1;i++) {
+			if (trainingData[i].coapplicantIncome >= 8000) {
+				if (trainingData[i].isLoaned) {
+					income8kY++;
+				} else {
+					income8kN++;
+				}
+			} else if (trainingData[i].coapplicantIncome >= 6000) {
+				if (trainingData[i].isLoaned) {
+					income6kY++;
+				} else {
+					income6kN++;
+				}
+			} else if (trainingData[i].coapplicantIncome >= 4000) {
+				if (trainingData[i].isLoaned) {
+					income4kY++;
+				} else {
+					income4kN++;
+				}
+			} else if (trainingData[i].coapplicantIncome >= 2000) {
+				if (trainingData[i].isLoaned) {
+					income2kY++;
+				} else {
+					income2kN++;
+				}
+			} else {
+				if (trainingData[i].isLoaned) {
+					income0kY++;
+				} else {
+					income0kN++;
+				}
+			}
+			yCount = income0kY+income2kY+income4kY+income6kY+income8kY;
+			nCount = income0kN+income2kN+income4kN+income6kN+income8kN;
+			
+			yGiven0kCoIncome = income0kY/yCount;
+			yGiven2kCoIncome = income2kY/yCount;
+			yGiven4kCoIncome = income4kY/yCount;
+			yGiven6kCoIncome = income6kY/yCount;
+			yGiven8kCoIncome = income8kY/yCount;
+			nGiven0kCoIncome = income0kN/nCount;
+			nGiven2kCoIncome = income2kN/nCount;
+			nGiven4kCoIncome = income4kN/nCount;
+			nGiven6kCoIncome = income6kN/nCount;
+			nGiven8kCoIncome = income8kN/nCount;
+		}
+	}
+
+	//Loan Amount will be sorted by ranges, 1-50, 51-100, 101-150 
+	public void findLoanAmount() {
+		double loan0Y = 0;
+		double loan50Y = 0;
+		double loan100Y = 0;
+		double loan0N = 0;
+		double loan50N = 0;
+		double loan100N = 0;
+		double yCount;
+		double nCount;
+		for (int i = 0;i<trainingData.length-1;i++) {
+			if (trainingData[i].loanAmount >100) {
+				if (trainingData[i].isLoaned) {
+					loan100Y++;
+				} else {
+					loan100N++;
+				}	
+			} else if (trainingData[i].loanAmount > 50) {
+				if (trainingData[i].isLoaned) {
+					loan50Y++;
+				} else {
+					loan50N++;
+				}
+			} else {
+				if (trainingData[i].isLoaned) {
+					loan0Y++;
+				} else {
+					loan0N++;
+				}
+			}
+			
+			yCount = loan0Y+loan50Y+loan100Y;
+			nCount = loan0N+loan50N+loan100N;
+			yGiven0Loan = loan0Y/yCount;
+			yGiven50Loan = loan50Y/yCount;
+			yGiven100Loan = loan100Y/yCount;
+			nGiven0Loan = loan0N/nCount;
+			nGiven50Loan = loan50N/nCount;
+			nGiven100Loan = loan100N/nCount;
+			
+		}
+		
+	}
+	//Loan Terms will be sorted by ranges, 1-100, 101-200, 201-300, 301-400
+	public void findLoanTerm() {
 		
 	}
 }
