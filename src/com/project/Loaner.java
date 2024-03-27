@@ -9,9 +9,9 @@ public class Loaner {
 	String dependants;
 	boolean education;
 	boolean selfEmployed;
-	int applicantIncome;
-	Double coapplicantIncome;
-	Double loanAmount;
+	double applicantIncome;
+	double coapplicantIncome;
+	double loanAmount;
 	double loanTerm;
 	boolean creditHistory;
 	String propertyArea;
@@ -41,7 +41,7 @@ public class Loaner {
 		//Is set to TRUE if self employed is marked as Yes, otherwise is set to false
 		this.selfEmployed = test.get(5).contains("Yes");
 		
-		this.applicantIncome = Integer.valueOf(test.get(6));
+		this.applicantIncome = Double.valueOf(test.get(6));
 		this.coapplicantIncome = Double.valueOf(test.get(7));
 		this.loanAmount = Double.valueOf(test.get(8));
 		

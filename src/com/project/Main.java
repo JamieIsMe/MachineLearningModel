@@ -11,18 +11,21 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String args[]) throws IOException {
 		int dataSize = 0;
+		int trainingDataSize = 0;
 		List<String> headers;
 		
 		//Reads the file to find out how many lines it contains, and therefore how large the array 
 		//that contains the test data needs to be
 		BufferedReader reader = new BufferedReader(new FileReader("loan_data.csv"));
 		while (reader.readLine() != null) dataSize+=1;
-		reader.close();
+
+		
 		
 		Scanner in = new Scanner(new FileReader("loan_data.csv"));
 		//Creates an array of the loaner class with the size of the dataset
 		TrainingLoaner[] trainingData = new TrainingLoaner[dataSize];
-		ProbabilityFinder finder;
+		
+		Probability2 test;
 		
 		//A counter for keeping track how far into the data set we are
 		int i = 0;
@@ -50,16 +53,53 @@ public class Main {
 		}
 		
 		//Section dedicated to calculating probabilities from the training dataset
-		finder = new ProbabilityFinder(trainingData);
-		finder.findDependants();
+		test = new Probability2(trainingData);
+		//System.out.println(test.findDependantsN("3+"));
 		
 		
+		System.out.println(headers);
+		for (int y=0; y<trainingData.length-1;y++) {
+			//trainingData[y].displayData();
+		}
 		
-//		System.out.println(headers);
-//		for (int y=0; y<trainingData.length-1;y++) {
-//			trainingData[y].displayData();
-//		}
+		//Section to reading and storing testing dataset
+		reader = new BufferedReader(new FileReader("train_data.csv"));
+		while (reader.readLine() != null) trainingDataSize+=1;
+		
+		reader = new BufferedReader(new FileReader("train_data.csv"));
+		TrainingLoaner[] testingData = new TrainingLoaner[trainingDataSize];
+		String line;
+		int y = 0;
+		while ((line = reader.readLine()) != null) {
+			testingData[y] = new TrainingLoaner(Arrays.asList(line.split(",")));
+			y++;
+		}
+		reader.close();
+		int right=0;
+		int wrong=0;
+		for (int x=0;x<testingData.length;x++) {
+
+			double yes = test.findYesToday(testingData[x]);
+			double no = test.findNoToday(testingData[x]);
+			if ((yes/(yes+no)>no/(yes+no)) == testingData[x].isLoaned) {
+				right++;
+			} else {
+				System.out.println((yes/(yes+no) + " " + no/(yes+no)));
+				wrong++;}
+			
+			//System.out.println((yes/(yes+no)>no/(yes+no)) +" " + testingData[x].isLoaned);
+			//testingData[x].displayData();
+		}
+		System.out.println(right);
+		System.out.println(wrong);
+		System.out.println(right+wrong);
+		//double yes = test.findYesToday(plswork);
+		//double no = test.findNoToday(plswork);
 		
 		
+		//System.out.println(yes/(yes+no));
+		//System.out.println(no/(yes+no));
+		//System.out.println(yes/(yes+no)>no/(yes+no)); 
 	}
+	
 }
