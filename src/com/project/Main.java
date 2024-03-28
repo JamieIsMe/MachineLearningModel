@@ -18,7 +18,7 @@ public class Main {
 		//that contains the test data needs to be
 		BufferedReader reader = new BufferedReader(new FileReader("loan_data.csv"));
 		while (reader.readLine() != null) dataSize+=1;
-
+		reader.close();
 		
 		
 		Scanner in = new Scanner(new FileReader("loan_data.csv"));
@@ -65,7 +65,7 @@ public class Main {
 		//Section to reading and storing testing dataset
 		reader = new BufferedReader(new FileReader("train_data.csv"));
 		while (reader.readLine() != null) trainingDataSize+=1;
-		
+		reader.close();
 		reader = new BufferedReader(new FileReader("train_data.csv"));
 		TrainingLoaner[] testingData = new TrainingLoaner[trainingDataSize];
 		String line;
@@ -90,9 +90,9 @@ public class Main {
 			//System.out.println((yes/(yes+no)>no/(yes+no)) +" " + testingData[x].isLoaned);
 			//testingData[x].displayData();
 		}
-		System.out.println(right);
-		System.out.println(wrong);
-		System.out.println(right+wrong);
+		System.out.println("Correct predictions: " + right);
+		System.out.println("Incorrect predictions: " + wrong);
+		System.out.println("Total predictions: "+ (right+wrong));
 		//double yes = test.findYesToday(plswork);
 		//double no = test.findNoToday(plswork);
 		
