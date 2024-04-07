@@ -1,6 +1,7 @@
 package com.project;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+	TrainingLoaner[] trainingData;
 	public static void main(String args[]) throws IOException {
 		int dataSize = 0;
 		int trainingDataSize = 0;
@@ -95,11 +97,40 @@ public class Main {
 		System.out.println("Total predictions: "+ (right+wrong));
 		//double yes = test.findYesToday(plswork);
 		//double no = test.findNoToday(plswork);
-		
+		GUI n = new GUI(500,500);
+		//GUI2 a = new GUI2(500,500);
+		//a.setupGUI();
+        //n.setUpGUI();
+        //n.setUpButtonListeners();
 		
 		//System.out.println(yes/(yes+no));
 		//System.out.println(no/(yes+no));
 		//System.out.println(yes/(yes+no)>no/(yes+no)); 
 	}
 	
+	public void loadTrainingData() throws FileNotFoundException {
+		Scanner in = new Scanner(new FileReader("loan_data.csv"));
+		int i=0;
+		try {
+			List<List<String>> line = new ArrayList<>();
+			
+			//Adds each line of the CSV to an array as an array of its own
+			line.add(Arrays.asList(in.nextLine().split(",")));
+			line.add(Arrays.asList(in.nextLine().split(",")));
+
+			//While there is a next line, adds the line to The TrainingLoaner class array,
+			//reads the next line and increments the counter
+			while (in.hasNextLine()) {
+				trainingData[i] = new TrainingLoaner(line.get(i+1));
+				line.add(Arrays.asList(in.nextLine().split(",")));  
+				i+=1;
+			}
+			//Adds the final line to the TrainingLoaner class array
+			trainingData[i] = new TrainingLoaner(line.get(i+1));
+			
+		} finally {
+			//Closes the scanner after it is finished
+			in.close();
+		}
+	}
 }
