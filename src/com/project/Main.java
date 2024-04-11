@@ -252,7 +252,9 @@ public class Main {
 	public void testLoaner() {
 		Loaner test1;
 		List<String> info = new ArrayList<String>();
-		
+		UIManager.put("OptionPane.background",new Color(60, 63, 65));
+		UIManager.put("Panel.background",new Color(60, 63, 65));
+		UIManager.put("Label.foreground",new Color(187, 187, 187));
 		JPanel pane = new JPanel();
 		JTextField gender;
 		JTextField married;
@@ -265,6 +267,7 @@ public class Main {
 		JTextField loanTerm;
 		JTextField creditHistory;
 		JTextField propertyArea;
+		
 		pane.setLayout(new GridLayout(0,2,2,2));
 		pane.add(new JLabel("Enter gender"));
 		pane.add(gender = new JTextField("Male or Female"));
@@ -289,7 +292,6 @@ public class Main {
 		pane.add(new JLabel("What is the property Area?"));
 		pane.add(propertyArea = new JTextField("Urban, Rural or Semiurban"));
 		JOptionPane.showMessageDialog(pane, pane);
-		System.out.println("test");
 		info.add("1");
 		info.add(gender.getText());
 		info.add(married.getText());
