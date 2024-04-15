@@ -1,9 +1,9 @@
 package com.project;
 
-public class Probability2 {
+public class ProbabilityCalculator {
 	TrainingLoaner[] trainingData;
 	
-	public Probability2(TrainingLoaner[] trainingData) {
+	public ProbabilityCalculator(TrainingLoaner[] trainingData) {
 		this.trainingData = trainingData;
 	}
 	

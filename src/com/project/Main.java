@@ -29,7 +29,7 @@ public class Main {
 	int trainingDataSize = 0;
 	TrainingLoaner[] trainingData = null;
 	TrainingLoaner[] testingData;
-	Probability2 probabilities;
+	ProbabilityCalculator probabilities;
 	JLabel status;
 	JLabel predictionText;
 	private JFrame frmMachineLearningModel;
@@ -184,7 +184,7 @@ public class Main {
 			System.out.println("Training Data has already been loaded");
 			status.setText("Training Data already loaded");
 		}
-		probabilities = new Probability2(trainingData);
+		probabilities = new ProbabilityCalculator(trainingData);
 		
 	}
 	
