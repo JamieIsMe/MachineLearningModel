@@ -34,7 +34,7 @@ public class Main {
 	int trainingDataSize = 0;
 	TrainingLoaner[] trainingData = null;
 	TrainingLoaner[] testingData;
-	Probability2 test;
+	Probability2 probabilities;
 	JLabel status;
 	JLabel predictionText;
 	private JFrame frmMachineLearningModel;
@@ -164,9 +164,11 @@ public class Main {
 	}
 	
 	
-	//Function that reads the Training Data CSV File, finds its length and adds all of the data into an array of objects
+	//Reads in the training data CVS file and runs each line into an object of my "trainingLoaner" class to store the data
 	public void readTrainData() throws IOException {
+		//Only runs if trainingData is empty
 		if (trainingData == null) {
+			//Read each line, incrementing a counter by 1 for each line to find out the size of my class array
 			BufferedReader reader = new BufferedReader(new FileReader("loan_data.csv"));
 			while (reader.readLine() != null) dataSize+=1;
 			reader.close();
@@ -189,13 +191,15 @@ public class Main {
 			}
 			status.setText("Loaded Training Data");
 		} else {
+			//Displays a message to say the data is already loaded if tried to load again
 			System.out.println("Training Data has already been loaded");
 			status.setText("Training Data already loaded");
 		}
-		test = new Probability2(trainingData);
+		probabilities = new Probability2(trainingData);
 		
 	}
 	
+	//Reads in the testing data CVS file and runs each line into an object of my "trainingLoaner" class to store the data
 	public void readTestData() throws IOException{
 		if (testingData == null) {
 			BufferedReader reader = new BufferedReader(new FileReader("train_data.csv"));
@@ -221,21 +225,20 @@ public class Main {
 		
 	}
 	
+	//This tests the stored testing data against the probabilities from the training data and returns the result
 	public void testTestData() {
 		if (trainingData!=null & testingData!=null) {
 			int right=0;
 			int wrong=0;
 			for (int x=0;x<testingData.length;x++) {
 	
-				double yes = test.findYesToday(testingData[x]);
-				double no = test.findNoToday(testingData[x]);
+				double yes = probabilities.findYesToday(testingData[x]);
+				double no = probabilities.findNoToday(testingData[x]);
 				if ((yes/(yes+no)>no/(yes+no)) == testingData[x].isLoaned) {
 					right++;
 				} else {
-					wrong++;}
-				
-				//System.out.println((yes/(yes+no)>no/(yes+no)) +" " + testingData[x].isLoaned);
-				//testingData[x].displayData();
+					wrong++;
+				}
 			}
 			int percent = (int) Math.round((double)right/(right+wrong)*100);
 			System.out.println("Correct predictions: " + right);
@@ -249,6 +252,7 @@ public class Main {
 		}
 	}
 	
+	//Creates the pop-up window to test individual data, and displays the result
 	public void testLoaner() {
 		Loaner test1;
 		List<String> info = new ArrayList<String>();
@@ -307,8 +311,8 @@ public class Main {
 		test1 = new Loaner(info);
 		test1.displayData();
 		
-		double yes = test.findYesToday(test1);
-		double no = test.findNoToday(test1);
+		double yes = probabilities.findYesToday(test1);
+		double no = probabilities.findNoToday(test1);
 		System.out.println(yes + " " + no);
 		
 		if ((yes/(yes+no)>no/(yes+no))){
