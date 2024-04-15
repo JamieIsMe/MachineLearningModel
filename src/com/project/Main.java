@@ -15,19 +15,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JPopupMenu;
 import javax.swing.JTextField;
 
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Main {
 	int dataSize = 0;
