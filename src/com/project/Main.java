@@ -53,16 +53,10 @@ public class Main {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public Main() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frmMachineLearningModel = new JFrame();
 		frmMachineLearningModel.getContentPane().setFont(new Font("Dialog", Font.BOLD, 12));
