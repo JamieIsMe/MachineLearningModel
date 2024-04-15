@@ -1,7 +1,7 @@
 # Machine Learning Model using Naïve Bayes
 
 This was created for my Object Oriented Programming Module.\
-It calculates the probability of a given person recieved a loan based on given data.\
+It calculates the probability of a given person receiving a loan based on given data.\
 The CSV files for training and testing are included.
 
 ## Classes
