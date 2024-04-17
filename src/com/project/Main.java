@@ -1,7 +1,6 @@
 package com.project;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import java.awt.GridLayout;
-
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -53,6 +51,7 @@ public class Main {
 	}
 
 	private void initialize() {
+		//Creates and loads the GUI
 		frmMachineLearningModel = new JFrame();
 		frmMachineLearningModel.getContentPane().setFont(new Font("Dialog", Font.BOLD, 12));
 		frmMachineLearningModel.getContentPane().setForeground(new Color(255, 255, 255));
@@ -71,6 +70,7 @@ public class Main {
 		lblNewLabel.setBounds(92, 11, 250, 23);
 		frmMachineLearningModel.getContentPane().add(lblNewLabel);
 		
+		//Button for loading the training data
 		JButton loadTrainData = new JButton("Load Training");
 		loadTrainData.setFocusable(false);
 		loadTrainData.setForeground(new Color(187, 187, 187));
@@ -89,6 +89,7 @@ public class Main {
 		loadTrainData.setBounds(13, 40, 129, 23);
 		frmMachineLearningModel.getContentPane().add(loadTrainData);
 		
+		//Button for loading the testing data
 		JButton loadTestData = new JButton("Load Testing");
 		loadTestData.setFocusable(false);
 		loadTestData.setForeground(new Color(187, 187, 187));
@@ -108,6 +109,7 @@ public class Main {
 		loadTestData.setBounds(152, 40, 129, 23);
 		frmMachineLearningModel.getContentPane().add(loadTestData);
 		
+		//Button for testing the test data
 		JButton testTestData = new JButton("Test Testing");
 		testTestData.setFocusable(false);
 		testTestData.setForeground(new Color(187, 187, 187));
@@ -130,6 +132,7 @@ public class Main {
 		status.setBounds(110, 74, 214, 33);
 		frmMachineLearningModel.getContentPane().add(status);
 		
+		//Button for manually testing data
 		JButton EnterInfo = new JButton("Enter Info");
 		EnterInfo.setForeground(new Color(187, 187, 187));
 		EnterInfo.setFocusable(false);
@@ -173,8 +176,6 @@ public class Main {
 				trainingData[i] = new TrainingLoaner(Arrays.asList(line.split(",")));
 				i++;
 			}	
-			//While there is a next line, adds the line to The TrainingLoaner class array,
-			//reads the next line and increments the counter
 			for (int y=0; y<trainingData.length-1;y++) {
 				trainingData[y].displayData();
 			}
@@ -208,6 +209,7 @@ public class Main {
 			}
 			status.setText("Loaded Testing Data");
 		} else {
+			//Displays a message to say the data is already loaded if tried to load again
 			System.out.println("Testing Data has already been loaded");
 			status.setText("Testing Data already loaded");
 		}
@@ -243,73 +245,76 @@ public class Main {
 	
 	//Creates the pop-up window to test individual data, and displays the result
 	public void testLoaner() {
-		Loaner test1;
-		List<String> info = new ArrayList<String>();
-		UIManager.put("OptionPane.background",new Color(60, 63, 65));
-		UIManager.put("Panel.background",new Color(60, 63, 65));
-		UIManager.put("Label.foreground",new Color(187, 187, 187));
-		JPanel pane = new JPanel();
-		JTextField gender;
-		JTextField married;
-		JTextField dependants;
-		JTextField education;
-		JTextField selfEmployed;
-		JTextField income;
-		JTextField coIncome;
-		JTextField loanAmount;
-		JTextField loanTerm;
-		JTextField creditHistory;
-		JTextField propertyArea;
-		
-		pane.setLayout(new GridLayout(0,2,2,2));
-		pane.add(new JLabel("Enter gender"));
-		pane.add(gender = new JTextField("Male or Female"));
-		pane.add(new JLabel("Are you married?"));
-		pane.add(married = new JTextField("Yes or No"));
-		pane.add(new JLabel("How many dependants?"));
-		pane.add(dependants = new JTextField("A Number"));
-		pane.add(new JLabel("Are you educated?"));
-		pane.add(education = new JTextField("Graduate or Not Graduate"));
-		pane.add(new JLabel("Are you self-employed?"));
-		pane.add(selfEmployed = new JTextField("Yes or No"));
-		pane.add(new JLabel("What is your income?"));
-		pane.add(income = new JTextField("A Number"));
-		pane.add(new JLabel("What is your co-income?"));
-		pane.add(coIncome = new JTextField("A Number"));
-		pane.add(new JLabel("What is the loan amount?"));
-		pane.add(loanAmount = new JTextField("A Number"));
-		pane.add(new JLabel("What is the loan term?"));
-		pane.add(loanTerm = new JTextField("A Number"));
-		pane.add(new JLabel("Do you have a credit history?"));
-		pane.add(creditHistory = new JTextField("1 or 0"));
-		pane.add(new JLabel("What is the property Area?"));
-		pane.add(propertyArea = new JTextField("Urban, Rural or Semiurban"));
-		JOptionPane.showMessageDialog(pane, pane);
-		info.add("1");
-		info.add(gender.getText());
-		info.add(married.getText());
-		info.add(dependants.getText());
-		info.add(education.getText());
-		info.add(selfEmployed.getText());
-		info.add(income.getText());
-		info.add(coIncome.getText());
-		info.add(loanAmount.getText());
-		info.add(loanTerm.getText());
-		info.add(creditHistory.getText());
-		info.add(propertyArea.getText());
-		test1 = new Loaner(info);
-		test1.displayData();
-		
-		double yes = probabilities.findYesToday(test1);
-		double no = probabilities.findNoToday(test1);
-		System.out.println(yes + " " + no);
-		
-		if ((yes/(yes+no)>no/(yes+no))){
-			predictionText.setText((int) Math.round((double)(yes/(yes+no))*100) + "% would be approved");
-			System.out.println((int) Math.round((double)(yes/(yes+no))*100) + "% would be approved");
+		if (trainingData!=null) {
+			Loaner manualData;
+			List<String> info = new ArrayList<String>();
+			UIManager.put("OptionPane.background",new Color(60, 63, 65));
+			UIManager.put("Panel.background",new Color(60, 63, 65));
+			UIManager.put("Label.foreground",new Color(187, 187, 187));
+			JPanel pane = new JPanel();
+			JTextField gender;
+			JTextField married;
+			JTextField dependants;
+			JTextField education;
+			JTextField selfEmployed;
+			JTextField income;
+			JTextField coIncome;
+			JTextField loanAmount;
+			JTextField loanTerm;
+			JTextField creditHistory;
+			JTextField propertyArea;
+			
+			pane.setLayout(new GridLayout(0,2,2,2));
+			pane.add(new JLabel("Enter gender"));
+			pane.add(gender = new JTextField("Male or Female"));
+			pane.add(new JLabel("Are you married?"));
+			pane.add(married = new JTextField("Yes or No"));
+			pane.add(new JLabel("How many dependants?"));
+			pane.add(dependants = new JTextField("A Number"));
+			pane.add(new JLabel("Are you educated?"));
+			pane.add(education = new JTextField("Graduate or Not Graduate"));
+			pane.add(new JLabel("Are you self-employed?"));
+			pane.add(selfEmployed = new JTextField("Yes or No"));
+			pane.add(new JLabel("What is your income?"));
+			pane.add(income = new JTextField("A Number"));
+			pane.add(new JLabel("What is your co-income?"));
+			pane.add(coIncome = new JTextField("A Number"));
+			pane.add(new JLabel("What is the loan amount?"));
+			pane.add(loanAmount = new JTextField("A Number"));
+			pane.add(new JLabel("What is the loan term?"));
+			pane.add(loanTerm = new JTextField("A Number"));
+			pane.add(new JLabel("Do you have a credit history?"));
+			pane.add(creditHistory = new JTextField("1 or 0"));
+			pane.add(new JLabel("What is the property Area?"));
+			pane.add(propertyArea = new JTextField("Urban, Rural or Semiurban"));
+			JOptionPane.showMessageDialog(pane, pane);
+			info.add("1");
+			info.add(gender.getText());
+			info.add(married.getText());
+			info.add(dependants.getText());
+			info.add(education.getText());
+			info.add(selfEmployed.getText());
+			info.add(income.getText());
+			info.add(coIncome.getText());
+			info.add(loanAmount.getText());
+			info.add(loanTerm.getText());
+			info.add(creditHistory.getText());
+			info.add(propertyArea.getText());
+			manualData = new Loaner(info);
+			manualData.displayData();
+			
+			double yes = probabilities.findYesToday(manualData);
+			double no = probabilities.findNoToday(manualData);
+			
+			if ((yes/(yes+no)>no/(yes+no))){
+				predictionText.setText((int) Math.round((double)(yes/(yes+no))*100) + "% would be approved");
+				System.out.println((int) Math.round((double)(yes/(yes+no))*100) + "% would be approved");
+			} else {
+				predictionText.setText((int) Math.round((double)(no/(yes+no))*100) + "% would be denied");
+				System.out.println((int) Math.round((double)(no/(yes+no))*100) + "% would be denied");
+			}
 		} else {
-			predictionText.setText((int) Math.round((double)(no/(yes+no))*100) + "% would be denied");
-			System.out.println((int) Math.round((double)(no/(yes+no))*100) + "% would be denied");
+			predictionText.setText("Training data not loaded");
 		}
 	}
 }
